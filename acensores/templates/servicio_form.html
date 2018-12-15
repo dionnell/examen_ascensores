@@ -1,0 +1,85 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <META name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'css/cssascensores.css' %}" type="text/css" rel="stylesheet"/>
+    <link href="{% static 'css/flexboxgrid.css' %}" type="text/css" rel="stylesheet">
+    <title>{% block title %} registo tecnico {% endblock %}</title>
+</head>
+
+<body background="{% static 'img/pikachu.gif' %}">
+
+    {% block header %} 
+
+<header >
+    <div class="col-xs-12 col-sm-8 col-md-6">
+    <div class="row">
+    <nav class ="navegacion">
+    
+        <ul class="menu">
+             
+                 <li><a href="{% url 'index' %}">Inicio</a></li>
+                 <li><a>Tecnico </a>
+                    <ul class ="submenu">
+                        <li><a  href="{% url 'registrate' %}">Registrar </a></li>
+                        <li><a>Mostrar </a></li>
+                    </ul>
+                 </li>
+                 <li><a >Empresa</a>
+                    <ul class ="submenu">
+                        <li><a href="{% url 'empresa_view' %}">Registrar </a></li>
+                        <li><a href="{% url 'lista' %}">Mostrar </a></li>
+                    </ul>
+                 </li>
+                 <li><a >Servicios </a>
+                    <ul class ="submenu">
+                        <li><a href="{% url 'servicio_view' %}">Registrar </a></li>
+                        <li><a href="{% url 'servicio_list' %}">Mostrar </a></li>
+                    </ul>
+                 </li>
+                 <li>{% if user.is_authenticated %}
+                         <a > {{ user.username }}</a></li>
+                 <li><a href="{% url 'logout' %}"> Cerrar sesion </a> </li>
+
+                        {% else %}
+                <li>
+                     <a href="{% url 'login' %}">Iniciar sesion</a>
+                     {% endif %}
+                     </li>
+                
+            
+
+</ul>
+</nav>
+</div>
+</div>
+</header>
+{% endblock %}
+
+
+    {% block content %}
+     
+    <form name="datos" method="POST" >
+     {% csrf_token %}
+     
+     <center>
+<div class="formulario2 container-fluid">
+        <a><font color="black" size="28">Registrar Servicio </font></a>
+      {{form.as_p}}
+        <input class="button" type="submit"  id="boton" value="Enviar" on>
+   </div>                                
+    </center>
+
+    </form>
+    {% endblock content %}
+</body>
+
+<footer background="{% static 'img/pikachu.gif' %}">
+    <br>
+    <br>
+    <br>
+    <br>
+</footer>
+</html>

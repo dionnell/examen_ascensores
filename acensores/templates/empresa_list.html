@@ -1,0 +1,109 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <META name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'css/cssascensores.css' %}" type="text/css" rel="stylesheet"/>
+    <link href="{% static 'css/flexboxgrid.css' %}" type="text/css" rel="stylesheet">
+ 
+
+    <title>{% block title %} Lista de empresas {% endblock %}</title>
+</head>
+
+<body background="{% static 'img/pikapi.gif' %}" >
+
+    {% block header %} 
+
+<header class="container-fluid">
+    <div class="col-xs-12 col-sm-8 col-md-6">
+    <div class="row">
+    <nav class ="navegacion">
+    
+        <ul class="menu">
+             
+                 <li><a href="{% url 'index' %}">Inicio</a></li>
+                 <li><a>Tecnico </a>
+                    <ul class ="submenu">
+                        <li><a  href="{% url 'registrate' %}">Registrar </a></li>
+                        <li><a>Mostrar </a></li>
+                    </ul>
+                 </li>
+                 <li><a >Empresa</a>
+                    <ul class ="submenu">
+                        <li><a href="{% url 'empresa_view' %}">Registrar </a></li>
+                        <li><a href="{% url 'lista' %}">Mostrar </a></li>
+                    </ul>
+                 </li>
+                 <li><a >Servicios </a>
+                    <ul class ="submenu">
+                        <li><a href="{% url 'servicio_view' %}">Registrar </a></li>
+                        <li><a href="{% url 'servicio_list' %}">Mostrar </a></li>
+                    </ul>
+                 </li>
+                 <li>{% if user.is_authenticated %}
+                         <a > {{ user.username }}</a></li>
+                 <li><a href="{% url 'logout' %}"> Cerrar sesion </a> </li>
+
+                        {% else %}
+                <li>
+                     <a href="{% url 'login' %}">Iniciar sesion</a>
+                     {% endif %}
+                     </li>
+                
+            
+
+</ul>
+</nav>
+</div>
+</div>
+</header>
+{% endblock %}
+
+    {% block content %}
+    <br>
+    
+    <center>
+        <div class="formulario">
+      <a><h1>Empresas Registradas</h1></a>
+  
+   <table >
+    <thead>
+        <tr>
+            
+            <td><h2>nombre</h2></td>
+            <td><h2>direccion</h2></td>
+            <td><h2>ciudad</h2></td>
+            <td><h2>comuna</h2></td>
+            <td><h2>telefono</h2></td>
+            <td><h2>email</h2></td>
+        </tr>
+
+    </thead>
+<tbody>
+    {% if empresas %}
+    {% for Empresa in empresas %}
+    <tr>
+        <td>{{ Empresa.nombre}}</td>
+        <td>{{ Empresa.direccion}}</td>
+        <td>{{ Empresa.ciudad}}</td>
+        <td>{{ Empresa.comuna}}</td>
+        <td>{{ Empresa.telefono}}</td>
+        <td>{{ Empresa.email}}</td>
+
+    </tr>
+    {% endfor %}
+
+    {% else %}
+    <h1>No hay registros de empresa disponibles</h1>
+
+     {% endif %}
+</tbody>
+
+</table>
+</div>
+</center>
+
+    {% endblock content %}
+</body>
+</html>

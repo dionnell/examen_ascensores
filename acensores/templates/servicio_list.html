@@ -1,0 +1,121 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <META name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'css/cssascensores.css' %}" type="text/css" rel="stylesheet"/>
+    <link href="{% static 'css/flexboxgrid.css' %}" type="text/css" rel="stylesheet">
+ 
+
+    <title>{% block title %} Lista de empresas {% endblock %}</title>
+</head>
+
+<body background="{% static 'img/pikacha.gif' %}" >
+
+    {% block header %} 
+
+<header class="container-fluid">
+    <div class="col-xs-12 col-sm-8 col-md-6">
+    <div class="row">
+    <nav class ="navegacion">
+    
+        <ul class="menu">
+             
+                 <li><a href="{% url 'index' %}">Inicio</a></li>
+                 <li><a>Tecnico </a>
+                    <ul class ="submenu">
+                        <li><a  href="{% url 'registrate' %}">Registrar </a></li>
+                        <li><a>Mostrar </a></li>
+                    </ul>
+                 </li>
+                 <li><a >Empresa</a>
+                    <ul class ="submenu">
+                        <li><a href="{% url 'empresa_view' %}">Registrar </a></li>
+                        <li><a href="{% url 'lista' %}">Mostrar </a></li>
+                    </ul>
+                 </li>
+                 <li><a >Servicios </a>
+                    <ul class ="submenu">
+                        <li><a href="{% url 'servicio_view' %}">Registrar </a></li>
+                        <li><a href="{% url 'servicio_list' %}">Mostrar </a></li>
+                    </ul>
+                 </li>
+                 <li>{% if user.is_authenticated %}
+                         <a > {{ user.username }}</a></li>
+                 <li><a href="{% url 'logout' %}"> Cerrar sesion </a> </li>
+
+                        {% else %}
+                <li>
+                     <a href="{% url 'login' %}">Iniciar sesion</a>
+                     {% endif %}
+                     </li>
+                
+            
+
+</ul>
+</nav>
+</div>
+</div>
+</header>
+{% endblock %}
+
+    {% block content %}
+    <br>
+    
+    <center>
+        <div class="formulario3">
+      <a><h1>Servicios Registrados</h1></a>
+  
+   <table >
+    <thead>
+        <tr>
+            
+            <td><h2>folio</h2></td>
+            <td><h2>empresa</h2></td>
+            <td><h2>fecha</h2></td>
+            <td><h2>horaInicio</h2></td>
+            <td><h2>horaTermino</h2></td>
+            <td><h2>IdAscensor</h2></td>
+            <td><h2>modeloAcensor</h2></td>
+            <td><h2>fallas</h2></td>
+            <td><h2>reparaciones</h2></td>
+            <td><h2>piezasCambiadas</h2></td>
+            <td><h2>tecnico</h2></td>
+
+        </tr>
+
+    </thead>
+<tbody>
+    {% if servicio %}
+    {% for Servicio in servicio %}
+    <tr>
+        <td>{{ Servicio.folio}}</td>
+        <td>{{ Servicio.empresa}}</td>
+        <td>{{ Servicio.fecha}}</td>
+        <td>{{ Servicio.horaInicio}}</td>
+        <td>{{ Servicio.horaTermino}}</td>
+        <td>{{ Servicio.IdAscensor}}</td>
+        <td>{{ Servicio.modeloAcensor}}</td>
+        <td>{{ Servicio.fallas}}</td>
+        <td>{{ Servicio.reparaciones}}</td>
+        <td>{{ Servicio.piezasCambiadas}}</td>
+        <td>{{ Servicio.tecnico}}</td>
+
+
+    </tr>
+    {% endfor %}
+
+    {% else %}
+    <h1>No hay registros de empresa disponibles</h1>
+
+     {% endif %}
+</tbody>
+
+</table>
+</div>
+</center>
+
+    {% endblock content %}
+</body>
+</html>
